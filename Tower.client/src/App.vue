@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-11 g-0 vh100">
-          <div>
+          <div class="yeet">
             <Navbar />
           </div>
           <div class="my-overflow">
@@ -11,7 +11,14 @@
           </div>
         </div>
         <div class="col-1 g-0 vh100 side-bar bg-gradient">
-          <Login />
+          <div>
+            <Login />
+          </div>
+          <div class="mt-5 text-center">
+            <router-link :to="{ name: 'CreateEvent' }">
+              <button class="btn btn-outline-light p-1" type="button">Post an Event!</button>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -44,8 +51,12 @@ export default {
   height: 100vh;
 }
 
+.yeet {
+  height: 8%;
+}
+
 .my-overflow {
-  height: 100%;
+  height: 92%;
   overflow-y: scroll;
 }
 
