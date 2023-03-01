@@ -29,7 +29,6 @@ class EventsService{
     }
     event.name = eventData.name || event.name
     event.description = eventData.description || event.description
-    event.capacity = eventData.capacity || event.capacity
     event.type = eventData.type || event.type
     event.startDate = eventData.startDate || event.startDate
     event.coverImg = eventData.coverImg || event.coverImg
