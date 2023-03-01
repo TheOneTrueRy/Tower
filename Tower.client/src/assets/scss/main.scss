@@ -10,13 +10,14 @@ body{
 
 #app {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   min-height: 100vh;
   background-color: var(--body-bg);
 }
 
 main {
   flex-grow: 1;
+  background-color: rgb(28, 1, 1);
 }
 
 a {
