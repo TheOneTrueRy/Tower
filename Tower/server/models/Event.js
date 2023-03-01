@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import { defaultSchemaOptions } from "../db/Constants.js";
 
 
-export const EventScshema = new Schema(
+export const EventSchema = new Schema(
   {
     creatorId: {type: Schema.Types.ObjectId, required: true, ref: 'Account'},
     name: {type: String, required: true, maxLength: 200, minLength: 3},
