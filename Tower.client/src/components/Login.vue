@@ -1,14 +1,15 @@
 <template>
   <span class="navbar-text">
-    <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
+    <button class="btn selectable text-success lighten-30 text-uppercase mt-4 my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
       Login
     </button>
-    <div v-else>
+    <div class="mt-4" v-else>
       <div class="dropdown dropstart my-2 my-lg-0 d-flex justify-content-center">
-        <div type="button" class="bg-dark border-0 selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">
+        <div type="button" class="selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="50" width="50" class="rounded" />
+            <img :src="account.picture || user.picture" alt="account photo" height="60" width="60"
+              class="rounded border-1 border-dark border" />
           </div>
         </div>
         <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">
