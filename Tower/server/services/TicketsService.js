@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { Forbidden } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 
 class TicketsService{
@@ -7,8 +7,13 @@ class TicketsService{
     let ticket =  await dbContext.Tickets.create(ticketData)
     await ticket.populate('profile', 'name picture')
     let event = await dbContext.Events.findById(ticketData.eventId)
-    event.capacity--
-    await event.save()
+    if(event.capacity == 0){
+      throw new BadRequest('Event is at full capacity, sorry!')
+    }
+    if(event.capacity > 0){
+      event.capacity--
+      await event.save()
+    }
     return ticket
   }
 
