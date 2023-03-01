@@ -41,6 +41,7 @@
 <script>
 import { ref } from "vue";
 import { eventsService } from "../services/EventsService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
@@ -49,9 +50,13 @@ export default {
     return {
       editable,
       async createEvent() {
-        const eventData = editable.value
-        await eventsService.createEvent(eventData)
-        editable.value = {}
+        try {
+          const eventData = editable.value
+          await eventsService.createEvent(eventData)
+          editable.value = { type: 'other' }
+        } catch (error) {
+          Pop.error(error.message, 'Creating Event')
+        }
       },
     }
   }
