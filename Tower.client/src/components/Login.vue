@@ -16,9 +16,15 @@
           <div class="list-group">
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
-                Manage Account
+                Manage Tickets
               </div>
             </router-link>
+            <!-- FIXME Edit Profile Stretch Goal -->
+            <!-- <router-link :to="{ name: 'Edit' }">
+              <div class="list-group-item dropdown-item list-group-item-action">
+                Edit Account
+              </div>
+            </router-link> -->
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout
