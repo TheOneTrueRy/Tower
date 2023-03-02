@@ -62,7 +62,7 @@
           <div class="col-10 d-flex align-items-center">
             <div class="w-100 bg-grey rounded d-flex flex-column p-2">
               <span v-if="eventTickets.find(t => t.profile.id == c.creator.id)" class=""><b>{{ c.creator.name
-              }}</b> - <i>is Attending</i></span>
+              }}</b> - <i>Attending This Event</i></span>
               <span v-else class=""><b>{{ c.creator.name }}</b></span>
               <span class="mt-1">{{ c.body }}</span>
             </div>
