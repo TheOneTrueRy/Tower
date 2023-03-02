@@ -11,6 +11,17 @@ import { AppState } from "../AppState.js";
 
 export default {
   setup() {
+    const route = useRoute()
+    const eventId = route.params.eventId
+
+    async function getEventById() {
+      try {
+
+      } catch (error) {
+
+      }
+    }
+
     return {
       event: computed(() => AppState.event),
       account: computed(() => AppState.account)

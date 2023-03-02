@@ -1,10 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-12">
-
+      <div class="col-12 px-1 mt-3">
+        <div
+          class="rounded border border-dark border-3 headImg elevation-1 d-flex flex-column align-items-start ps-3 pt-5 text-light my-shadow">
+          <span>Get ahead of the scalpers.</span>
+          <span>Reserve your seats now with</span>
+          <span>real events for real people.</span>
+        </div>
       </div>
-      <div class="col-12 px-3 mt-5">
+      <div class="col-12 px-3 mt-5 elevation-1">
         <div class="row bg-dark text-center">
           <div class="col-2 selectable py-2 fs-5" :class="[filterType == '' ? 'typeFilter' : '']"
             @click="changeFilterType('')">
@@ -22,15 +27,17 @@
         </div>
       </div>
       <div v-for="e in events" class="col-3 p-2 mt-3 event">
-        <div :style="{ backgroundImage: `url(${e.coverImg})` }" class="h-100 w-100 event-bg selectable">
-          <div class="event-top"></div>
-          <div class="event-bottom p-1 text-light d-flex flex-column justify-content-end my-shadow">
-            <span><b>{{ e.name }}</b></span>
-            <span>{{ e.location }}</span>
-            <span>{{ e.date }}</span>
-            <span class="text-end"><b>{{ e.capacity }}</b> Spots Left</span>
+        <router-link :to="{ name: 'EventDetails', params: { eventId: e.id } }">
+          <div :style="{ backgroundImage: `url(${e.coverImg})` }" class="h-100 w-100 event-bg selectable elevation-1">
+            <div class="event-top"></div>
+            <div class="event-bottom p-1 text-light d-flex flex-column justify-content-end my-shadow">
+              <span><b>{{ e.name }}</b></span>
+              <span>{{ e.location }}</span>
+              <span>{{ e.date }}</span>
+              <span class="text-end"><b>{{ e.capacity }}</b> Spots Left</span>
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -101,4 +108,12 @@ export default {
 .typeFilter {
   color: firebrick;
   border-bottom: 4px solid firebrick;
-}</style>
+}
+
+.headImg {
+  height: 250px;
+  background-size: cover;
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/0125bc97676521.5ecafffcbb947.jpg);
+  background-position: center;
+}
+</style>
