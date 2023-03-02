@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 px-1 mt-3">
         <div
-          class="rounded border border-dark border-3 headImg elevation-1 d-flex flex-column align-items-start ps-3 pt-5 text-light my-shadow">
+          class="rounded border border-dark border-3 headImg elevation-1 d-flex flex-column align-items-start ps-3 pt-5 text-light my-shadow fs-5">
           <span>Get ahead of the scalpers.</span>
           <span>Reserve your seats now with</span>
           <span>real events for real people.</span>
