@@ -83,6 +83,7 @@ export default {
 .event-bottom {
   height: 35%;
   background-color: rgba(255, 255, 255, 0.203);
+  backdrop-filter: blur(5px);
 }
 
 .my-shadow {
