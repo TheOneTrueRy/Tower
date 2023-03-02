@@ -1,5 +1,5 @@
 <template>
-  <span class="navbar-text">
+  <span class="navbar-text d-flex justify-content-center">
     <button class="btn selectable text-success lighten-30 text-uppercase mt-4 my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
       Login
