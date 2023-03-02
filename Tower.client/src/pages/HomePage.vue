@@ -4,13 +4,18 @@
       <div class="col-12">
 
       </div>
-      <div class="col-12">
-        <div class="row">
-
+      <div class="col-12 px-3 mt-5">
+        <div class="row bg-dark text-center">
+          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('')">All</div>
+          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('concert')">Concerts</div>
+          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('convention')">Conventions</div>
+          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('sport')">Sports</div>
+          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('digital')">Digital</div>
+          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('other')">Other</div>
         </div>
       </div>
       <div v-for="e in events" class="col-3 p-2 mt-3 event">
-        <div :style="{ backgroundImage: `url(${e.coverImg})` }" class="h-100 w-100 event-bg">
+        <div :style="{ backgroundImage: `url(${e.coverImg})` }" class="h-100 w-100 event-bg selectable">
           <div class="event-top"></div>
           <div class="event-bottom p-1 text-light d-flex flex-column justify-content-end my-shadow">
             <span><b>{{ e.name }}</b></span>
@@ -53,7 +58,10 @@ export default {
           return AppState.events.filter(e => e.type == filterType.value)
         }
       }),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      changeFilterType(type) {
+        filterType.value = type
+      }
     }
   }
 }
