@@ -6,12 +6,19 @@
       </div>
       <div class="col-12 px-3 mt-5">
         <div class="row bg-dark text-center">
-          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('')">All</div>
-          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('concert')">Concerts</div>
-          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('convention')">Conventions</div>
-          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('sport')">Sports</div>
-          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('digital')">Digital</div>
-          <div class="col-2 selectable py-2 fs-5" @click="changeFilterType('other')">Other</div>
+          <div class="col-2 selectable py-2 fs-5" :class="[filterType == '' ? 'typeFilter' : '']"
+            @click="changeFilterType('')">
+            All</div>
+          <div class="col-2 selectable py-2 fs-5" :class="[filterType == 'concert' ? 'typeFilter' : '']"
+            @click="changeFilterType('concert')">Concerts</div>
+          <div class="col-2 selectable py-2 fs-5" :class="[filterType == 'convention' ? 'typeFilter' : '']"
+            @click="changeFilterType('convention')">Conventions</div>
+          <div class="col-2 selectable py-2 fs-5" :class="[filterType == 'sport' ? 'typeFilter' : '']"
+            @click="changeFilterType('sport')">Sports</div>
+          <div class="col-2 selectable py-2 fs-5" :class="[filterType == 'digital' ? 'typeFilter' : '']"
+            @click="changeFilterType('digital')">Digital</div>
+          <div class="col-2 selectable py-2 fs-5" :class="[filterType == 'other' ? 'typeFilter' : '']"
+            @click="changeFilterType('other')">Other</div>
         </div>
       </div>
       <div v-for="e in events" class="col-3 p-2 mt-3 event">
@@ -61,7 +68,8 @@ export default {
       account: computed(() => AppState.account),
       changeFilterType(type) {
         filterType.value = type
-      }
+      },
+      filterType,
     }
   }
 }
@@ -89,4 +97,8 @@ export default {
 .my-shadow {
   text-shadow: 0 0 4px black;
 }
-</style>
+
+.typeFilter {
+  color: firebrick;
+  border-bottom: 4px solid firebrick;
+}</style>

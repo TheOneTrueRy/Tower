@@ -45,7 +45,7 @@ import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({ type: 'other' })
 
     return {
       editable,

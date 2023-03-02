@@ -23,15 +23,15 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/account',
-    name: 'Account',
-    component: loadPage('AccountPage'),
-    beforeEnter: authGuard
+    path: '/events/:eventId',
+    name: 'EventDetails',
+    component: loadPage('EventDetailsPage'),
   },
   {
     path: '/CreateEvent',
     name: 'CreateEvent',
-    component: loadPage('CreateEventPage')
+    component: loadPage('CreateEventPage'),
+    beforeEnter: authGuard
   },
 ]
 

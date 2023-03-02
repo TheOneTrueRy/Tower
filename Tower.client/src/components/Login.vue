@@ -1,10 +1,10 @@
 <template>
-  <span class="navbar-text d-flex justify-content-center">
-    <button class="btn selectable text-success lighten-30 text-uppercase mt-4 my-lg-0" @click="login"
+  <span class="navbar-text d-flex justify-content-center mt-4">
+    <button class="btn selectable bg-my-red text-light bg-gradient lighten-30 text-uppercase my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
       Login
     </button>
-    <div class="mt-4" v-else>
+    <div class="" v-else>
       <div class="dropdown dropstart my-2 my-lg-0 d-flex justify-content-center">
         <div type="button" class="selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">
           <div v-if="account.picture || user.picture">
