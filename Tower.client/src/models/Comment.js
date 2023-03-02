@@ -6,6 +6,5 @@ export class Comment{
     this.creator = data.creator
     this.eventId = data.eventId
     this.body = data.body
-    this.isAttending = data.isAttending
   }
 }

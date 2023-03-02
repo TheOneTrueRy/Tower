@@ -24,7 +24,7 @@
               <div class="col-12 d-flex justify-content-between">
                 <span v-if="event.capacity > 0"><span class="green">{{ event.capacity }}</span> spots left.</span>
                 <span v-else><span class="red">{{ event.capacity }}</span> spots left.</span>
-                <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning" type="button"
+                <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1" type="button"
                   @click="attendEvent()">Attend
                   Event</button>
                 <button v-else-if="event.capacity == 0" class="btn btn-danger" disabled>No Spots Left!</button>
@@ -36,16 +36,21 @@
       </div>
       <div class="col-12 px-3 mt-4">
         <div class="w-100 bg-dark bg-gradient py-2 px-1">
-          <img v-for="ticket in eventTickets" :src="ticket.profile.picture" :alt="ticket.profile.name"
-            :title="ticket.profile.name" height="30" width="30" class="rounded-circle ms-1">
+          <div>
+            <span class="my-shadow">Attending This Event:</span>
+          </div>
+          <div>
+            <img v-for="ticket in eventTickets" :src="ticket.profile.picture" :alt="ticket.profile.name"
+              :title="ticket.profile.name" height="40" width="40" class="rounded-circle ms-1 border-black elevation-1">
+          </div>
         </div>
       </div>
       <div class="col-8 offset-2 mt-5 py-3 bg-dark">
         <div class="row px-4">
           <div class="col-12">
-            <form class="d-flex flex-column align-items-end">
-              <textarea id="commentBody" placeholder="Tell the people..."></textarea>
-              <button class="btn btn-success elevation-1 mt-2">post comment</button>
+            <form class="d-flex flex-column align-items-end" @submit.prevent="createComment()">
+              <textarea v-model="editable.body" id="commentBody" placeholder="Tell the people..."></textarea>
+              <button class="btn btn-success bg-gradient elevation-1 mt-2">post comment</button>
             </form>
           </div>
         </div>
@@ -56,7 +61,8 @@
           </div>
           <div class="col-10 d-flex align-items-center">
             <div class="w-100 bg-grey rounded d-flex flex-column p-2">
-              <span v-if="c.isAttending" class=""><b>{{ c.creator.name }}</b> - <i>is Attending</i></span>
+              <span v-if="eventTickets.find(t => t.profile.id == c.creator.id)" class=""><b>{{ c.creator.name
+              }}</b> - <i>is Attending</i></span>
               <span v-else class=""><b>{{ c.creator.name }}</b></span>
               <span class="mt-1">{{ c.body }}</span>
             </div>
@@ -69,10 +75,11 @@
 
 
 <script>
-import { computed, watchEffect, onUnmounted } from "vue";
+import { computed, watchEffect, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import { attendeesService } from "../services/AttendeesService.js";
+import { commentsService } from "../services/CommentsService.js";
 import { eventsService } from "../services/EventsService.js";
 import Pop from "../utils/Pop.js";
 
@@ -80,6 +87,7 @@ export default {
   setup() {
     const route = useRoute()
     const eventId = route.params.eventId
+    const editable = ref({})
 
     async function getEventById() {
       try {
@@ -118,6 +126,7 @@ export default {
     })
 
     return {
+      editable,
       attending: computed(() => {
         if (AppState.eventTickets.find(t => t.profile.id == AppState.account.id)) {
           return true
@@ -136,6 +145,15 @@ export default {
           Pop.error(error.message, 'Attending Event')
         }
       },
+      async createComment() {
+        try {
+          const commentData = editable.value
+          commentData.eventId = eventId
+          await commentsService.createComment(commentData)
+        } catch (error) {
+          Pop.error(error.message, 'Creating Comment')
+        }
+      }
     }
   }
 }
@@ -166,5 +184,9 @@ export default {
   width: 100%;
   height: 15vh;
   resize: none;
+}
+
+.border-black {
+  border: 2px solid black
 }
 </style>
