@@ -2,7 +2,7 @@
   <div v-if="event" class="container-fluid mt-1">
     <div class="row">
       <div class="col-12 px-4">
-        <div class="row px-1 py-4 eventDetailsCard text-light my-shadow elevation-1"
+        <div class="row py-4 px-3 eventDetailsCard text-light my-shadow elevation-1"
           :style="{ backgroundImage: `url(${event.coverImg})` }">
           <div class="col-4 d-flex align-items-center justify-content-center">
             <img :src="event.coverImg" alt="" height="300" width="300" class="elevation-2">
@@ -34,8 +34,34 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12 px-3 mt-4">
+        <div class="w-100 bg-dark bg-gradient py-2 px-1">
+          <img v-for="ticket in eventTickets" :src="ticket.profile.picture" :alt="ticket.profile.name"
+            :title="ticket.profile.name" height="30" width="30" class="rounded-circle ms-1">
+        </div>
+      </div>
+      <div class="col-8 offset-2 mt-5 py-3 bg-dark">
+        <div class="row px-4">
+          <div class="col-12">
+            <form class="d-flex flex-column align-items-end">
+              <textarea id="commentBody" placeholder="Tell the people..."></textarea>
+              <button class="btn btn-success elevation-1 mt-2">post comment</button>
+            </form>
+          </div>
+        </div>
+        <div v-for="c in comments" class="row mt-3 px-4">
 
+          <div class="col-2 text-center">
+            <img class="rounded-circle elevation-1" :src="c.creator.picture" :alt="c.creator.name" height="80" width="80">
+          </div>
+          <div class="col-10 d-flex align-items-center">
+            <div class="w-100 bg-grey rounded d-flex flex-column p-2">
+              <span v-if="c.isAttending" class=""><b>{{ c.creator.name }}</b> - <i>is Attending</i></span>
+              <span v-else class=""><b>{{ c.creator.name }}</b></span>
+              <span class="mt-1">{{ c.body }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -71,10 +97,19 @@ export default {
       }
     }
 
+    async function getEventComments() {
+      try {
+        await attendeesService.getEventComments(eventId)
+      } catch (error) {
+        Pop.error(error.message, 'Getting Event Comments')
+      }
+    }
+
     watchEffect(() => {
       if (route.params.eventId) {
         getEventById()
         getEventTickets()
+        getEventComments()
       }
     })
 
@@ -93,6 +128,7 @@ export default {
       event: computed(() => AppState.event),
       account: computed(() => AppState.account),
       eventTickets: computed(() => AppState.eventTickets),
+      comments: computed(() => AppState.comments),
       async attendEvent() {
         try {
           await attendeesService.attendEvent({ eventId: route.params.eventId })
@@ -109,7 +145,6 @@ export default {
 <style lang="scss" scoped>
 .eventDetailsCard {
   height: 50vh;
-  width: 100%;
   background-color: rgb(47, 57, 57);
   background-size: cover;
 }
@@ -125,5 +160,11 @@ export default {
 
 .red {
   color: red;
+}
+
+#commentBody {
+  width: 100%;
+  height: 15vh;
+  resize: none;
 }
 </style>

@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { Comment } from "../models/Comment.js"
 import { Ticket } from "../models/Ticket.js"
 import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
@@ -9,6 +10,13 @@ class AttendeesService{
   async getEventTickets(eventId){
     const res = await api.get(`api/events/${eventId}/tickets`)
     AppState.eventTickets = res.data.map(t => new Ticket(t))
+  }
+
+  async getEventComments(eventId){
+    const res = await api.get(`api/events/${eventId}/comments`)
+    logger.log(res.data)
+    AppState.comments = res.data.map(c => new Comment(c))
+    logger.log(AppState.comments)
   }
 
   async attendEvent(eventData){
