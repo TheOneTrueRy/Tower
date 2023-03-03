@@ -103,7 +103,7 @@ export default {
 }
 
 .my-shadow {
-  text-shadow: 0 0 4px black;
+  text-shadow: 0 0 6px black;
 }
 
 .typeFilter {

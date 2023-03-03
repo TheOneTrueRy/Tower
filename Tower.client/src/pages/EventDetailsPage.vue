@@ -4,9 +4,9 @@
       <div class="col-12 px-4">
         <div class="row eventDetailsCard text-light my-shadow elevation-1"
           :style="{ backgroundImage: `url(${event.coverImg})` }">
-          <div class="col-12">
-            <div class="icy row py-3 px-4 h-100">
-              <div class="col-4 d-flex align-items-center justify-content-center g-0">
+          <div class="col-12 fixme">
+            <div class="icy row py-3 px-4">
+              <div class="col-4 d-flex align-items-center thumbnailCol">
                 <img :src="event.coverImg" :alt="event.name" id="eventThumbnail" class="elevation-2">
               </div>
               <div class="col-8 d-flex flex-column justify-content-between h-100">
@@ -212,6 +212,7 @@ export default {
 }
 
 .icy {
+  height: 100%;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
@@ -219,7 +220,7 @@ export default {
 }
 
 .my-shadow {
-  text-shadow: 0px 1px 5px black;
+  text-shadow: 0px 0px 6px black;
 }
 
 .green {
@@ -243,7 +244,7 @@ export default {
 
 #eventThumbnail {
   width: 95%;
-  height: auto;
+  height: 85%;
 }
 
 #eventDescription {
@@ -253,5 +254,13 @@ export default {
 
 #eventDescription::-webkit-scrollbar {
   display: none;
+}
+
+.fixme {
+  height: 50vh;
+}
+
+.thumbnailCol {
+  height: 100%;
 }
 </style>
