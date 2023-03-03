@@ -34,7 +34,8 @@
               <span><b>{{ e.name }}</b></span>
               <span>{{ e.location }}</span>
               <span>{{ e.date }}</span>
-              <span class="text-end"><b>{{ e.capacity }}</b> Spots Left</span>
+              <span v-if="e.isCanceled == false" class="text-end"><b>{{ e.capacity }}</b> Spots Left</span>
+              <span v-else class="red my-shadow"><b>Event Cancelled</b></span>
             </div>
           </div>
         </router-link>
@@ -115,5 +116,9 @@ export default {
   background-size: cover;
   background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/0125bc97676521.5ecafffcbb947.jpg);
   background-position: center;
+}
+
+.red {
+  color: red;
 }
 </style>
