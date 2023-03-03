@@ -5,9 +5,9 @@
         <h2 class="text-light my-shadow">My Upcoming Events:</h2>
       </div>
       <div v-for="ticket in myTickets" class="col-8 offset-2 mt-4">
-        <div class="row">
+        <div v-if="ticket.event" class="row">
           <div class="col-3 g-0">
-            <router-link :to="{ name: 'EventDetails', params: { eventId: ticket.event.id } }">
+            <router-link :to="{ name: 'EventDetails', params: { eventId: ticket.event?.id } }">
               <img :src="ticket.event.coverImg" :alt="ticket.event.name" class="eventCoverImg">
             </router-link>
           </div>

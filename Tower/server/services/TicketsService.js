@@ -31,10 +31,12 @@ class TicketsService{
 
   async deleteTicket(ticketId, requestorId){
     let ticket = await dbContext.Tickets.findById(ticketId)
+    .populate('event')
     if(requestorId != ticket.accountId){
       throw new Forbidden("That's not your ticket!")
     }
     let event = await dbContext.Events.findById(ticket.eventId)
+    .populate('creator', 'name picture')
     event.capacity++
     await event.save()
     await ticket.remove()
