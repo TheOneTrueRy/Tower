@@ -40,6 +40,7 @@
 
 <script>
 import { ref } from "vue";
+import { router } from "../router.js";
 import { eventsService } from "../services/EventsService.js";
 import Pop from "../utils/Pop.js";
 
@@ -52,8 +53,9 @@ export default {
       async createEvent() {
         try {
           const eventData = editable.value
-          await eventsService.createEvent(eventData)
+          let newEvent = await eventsService.createEvent(eventData)
           editable.value = { type: 'other' }
+          router.push({ name: 'EventDetails', params: { eventId: newEvent.id } })
         } catch (error) {
           Pop.error(error.message, 'Creating Event')
         }

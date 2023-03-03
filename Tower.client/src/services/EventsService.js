@@ -9,6 +9,7 @@ class EventsService{
   async createEvent(eventData){
     const res = await api.post('api/events', eventData)
     AppState.events.unshift(new Event(res.data))
+    return res.data
   }
 
   async getAllEvents(){
