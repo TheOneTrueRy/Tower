@@ -22,13 +22,24 @@
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-between">
-                <span v-if="event.capacity > 0"><span class="green">{{ event.capacity }}</span> spots left.</span>
-                <span v-else><span class="red">{{ event.capacity }}</span> spots left.</span>
-                <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1" type="button"
-                  @click="attendEvent()">Attend
-                  Event</button>
-                <button v-else-if="event.capacity == 0" class="btn btn-danger" disabled>No Spots Left!</button>
-                <button v-else class="btn btn-grey" disabled>Already Attending</button>
+                <div v-if="event.isCanceled == false">
+                  <span v-if="event.capacity > 0"><span class="green">{{ event.capacity }}</span> spots left.</span>
+                  <span v-else><span class="red">{{ event.capacity }}</span> spots left.</span>
+                </div>
+                <div v-else>
+                  <span class="fs-5 red">EVENT CANCELLED</span>
+                </div>
+                <div v-if="event.creator.id != account?.id && event.isCanceled == false">
+                  <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1"
+                    type="button" @click="attendEvent()">Attend
+                    Event</button>
+                  <button v-else-if="event.capacity == 0" class="btn btn-danger" disabled>No Spots Left!</button>
+                  <button v-else class="btn btn-grey" disabled>Already Attending</button>
+                </div>
+                <div v-else-if="event.creator.id == account?.id && event.isCanceled == false">
+                  <button class="btn btn-danger" @click="cancelEvent()">Cancel Event</button>
+                </div>
+                <div v-else></div>
               </div>
             </div>
           </div>
@@ -152,6 +163,15 @@ export default {
           await commentsService.createComment(commentData)
         } catch (error) {
           Pop.error(error.message, 'Creating Comment')
+        }
+      },
+      async cancelEvent() {
+        try {
+          if (await Pop.confirm('Are you sure you wish to cancel this event?', 'This action can not be reversed.', 'Yep!')) {
+            await eventsService.cancelEvent(eventId)
+          }
+        } catch (error) {
+          Pop.error(error.message, 'Cancelling Event')
         }
       }
     }
