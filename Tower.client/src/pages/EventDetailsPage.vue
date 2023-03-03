@@ -81,6 +81,8 @@
               }}</b> - <i>Attending This Event</i></span>
               <span v-else class=""><b>{{ c.creator.name }}</b></span>
               <span class="mt-1">{{ c.body }}</span>
+              <button type="button" @click="deleteComment(c.id)" class="btn btn-danger mt-2 w-25"
+                v-if="c.creator.id == account?.id">Delete Comment</button>
             </div>
           </div>
         </div>
@@ -179,6 +181,15 @@ export default {
         } catch (error) {
           Pop.error(error.message, 'Cancelling Event')
         }
+      },
+      async deleteComment(commentId) {
+        try {
+          if (await Pop.confirm('Are you sure you want to delete your comment?')) {
+            await commentsService.deleteComment(commentId)
+          }
+        } catch (error) {
+          Pop.error(error.message, 'Deleting Comment')
+        }
       }
     }
   }
@@ -224,5 +235,9 @@ export default {
 #eventDescription {
   height: 20vh;
   overflow-y: scroll;
+}
+
+#eventDescription::-webkit-scrollbar {
+  display: none;
 }
 </style>
