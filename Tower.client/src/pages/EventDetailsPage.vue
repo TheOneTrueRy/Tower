@@ -2,54 +2,60 @@
   <div v-if="event" class="container-fluid mt-1">
     <div class="row">
       <div class="col-12 px-4">
-        <div class="row py-4 px-3 eventDetailsCard text-light my-shadow elevation-1"
+        <div class="row eventDetailsCard text-light my-shadow elevation-1"
           :style="{ backgroundImage: `url(${event.coverImg})` }">
-          <div class="col-4 d-flex align-items-center justify-content-center">
-            <img :src="event.coverImg" :alt="event.name" id="eventThumbnail" class="elevation-2">
-          </div>
-          <div class="col-8 d-flex flex-column justify-content-between h-100">
-            <div class="row">
-              <div class="col-6 d-flex flex-column">
-                <span class="fs-5 fw-bold"><b>{{ event.name }}</b></span>
-                <span>{{ event.location }}</span>
+          <div class="col-12">
+            <div class="icy row py-3 px-4 h-100">
+              <div class="col-4 d-flex align-items-center justify-content-center g-0">
+                <img :src="event.coverImg" :alt="event.name" id="eventThumbnail" class="elevation-2">
               </div>
-              <div class="col-6 d-flex justify-content-end">
-                <span>{{ new Date(event.startDate).toLocaleDateString() }}</span>
-              </div>
-              <div class="col-12 mt-4" id="eventDescription">
-                <span>{{ event.description }}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-between align-items-center">
-                <div v-if="event.isCanceled == false">
-                  <span v-if="event.capacity > 0"><span class="green">{{ event.capacity }}</span> spots left.</span>
-                  <span v-else><span class="red">{{ event.capacity }}</span> spots left.</span>
+              <div class="col-8 d-flex flex-column justify-content-between h-100">
+                <div class="row">
+                  <div class="col-6 d-flex flex-column">
+                    <span class="fs-5 fw-bold"><b>{{ event.name }}</b></span>
+                    <span>{{ event.location }}</span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-end">
+                    <span>{{ new Date(event.startDate).toLocaleDateString() }}</span>
+                  </div>
+                  <div class="col-12 mt-4" id="eventDescription">
+                    <span>{{ event.description }}</span>
+                  </div>
                 </div>
-                <div v-else class="d-flex align-items-center">
-                  <span class="fs-5 red fw-bold">EVENT CANCELLED</span>
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div v-if="event.isCanceled == false">
+                      <span v-if="event.capacity > 0"><span class="green">{{ event.capacity }}</span> spots left.</span>
+                      <span v-else><span class="red">{{ event.capacity }}</span> spots left.</span>
+                    </div>
+                    <div v-else class="d-flex align-items-center">
+                      <span class="fs-5 red fw-bold">EVENT CANCELLED</span>
+                    </div>
+                    <div v-if="event.isCanceled == false">
+                      <span class="fw-bold">Event Host:</span>
+                      <img :src="event.creator.picture" :alt="event.creator.name" :title="event.creator.name"
+                        class="rounded-circle border border-dark border-2 ms-3" height="75" width="75">
+                    </div>
+                    <div v-if="event.creator.id != account?.id && event.isCanceled == false">
+                      <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1"
+                        type="button" @click="attendEvent()">Attend
+                        Event</button>
+                      <button v-else-if="event.capacity == 0" class="btn btn-danger" disabled>No Spots Left!</button>
+                      <button v-else class="btn btn-grey" disabled>Already Attending</button>
+                    </div>
+                    <div v-else-if="event.creator.id == account?.id && event.isCanceled == false">
+                      <button class="btn btn-danger" @click="cancelEvent()">Cancel Event</button>
+                    </div>
+
+                    <div v-else></div>
+                  </div>
                 </div>
-                <div v-if="event.isCanceled == false">
-                  <span class="fw-bold">Event Host:</span>
-                  <img :src="event.creator.picture" :alt="event.creator.name" :title="event.creator.name"
-                    class="rounded-circle border border-dark border-2 ms-3" height="75" width="75">
-                </div>
-                <div v-if="event.creator.id != account?.id && event.isCanceled == false">
-                  <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1"
-                    type="button" @click="attendEvent()">Attend
-                    Event</button>
-                  <button v-else-if="event.capacity == 0" class="btn btn-danger" disabled>No Spots Left!</button>
-                  <button v-else class="btn btn-grey" disabled>Already Attending</button>
-                </div>
-                <div v-else-if="event.creator.id == account?.id && event.isCanceled == false">
-                  <button class="btn btn-danger" @click="cancelEvent()">Cancel Event</button>
-                </div>
-                <div v-else></div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="col-12 px-3 mt-4">
         <div class="w-100 bg-dark bg-gradient py-2 px-1">
           <div>
@@ -202,6 +208,14 @@ export default {
   height: 50vh;
   background-color: rgb(47, 57, 57);
   background-size: cover;
+
+}
+
+.icy {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .my-shadow {
