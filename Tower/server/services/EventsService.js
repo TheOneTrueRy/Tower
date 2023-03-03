@@ -38,6 +38,7 @@ class EventsService{
 
   async cancelEvent(eventId, requestorId){
     let event = await dbContext.Events.findById(eventId)
+    .populate('creator', 'name picture')
     if(requestorId != event.creatorId){
       throw new Forbidden("That's not your event, silly!")
     }

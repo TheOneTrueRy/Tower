@@ -5,9 +5,9 @@
         <div class="row py-4 px-3 eventDetailsCard text-light my-shadow elevation-1"
           :style="{ backgroundImage: `url(${event.coverImg})` }">
           <div class="col-4 d-flex align-items-center justify-content-center">
-            <img :src="event.coverImg" alt="" height="300" width="300" class="elevation-2">
+            <img :src="event.coverImg" :alt="event.name" id="eventThumbnail" class="elevation-2">
           </div>
-          <div class="col-8 d-flex flex-column justify-content-between">
+          <div class="col-8 d-flex flex-column justify-content-between h-100">
             <div class="row">
               <div class="col-6 d-flex flex-column">
                 <span class="fs-5 fw-bold"><b>{{ event.name }}</b></span>
@@ -16,18 +16,23 @@
               <div class="col-6 d-flex justify-content-end">
                 <span>{{ new Date(event.startDate).toLocaleDateString() }}</span>
               </div>
-              <div class="col-12 mt-4">
+              <div class="col-12 mt-4" id="eventDescription">
                 <span>{{ event.description }}</span>
               </div>
             </div>
             <div class="row">
-              <div class="col-12 d-flex justify-content-between">
+              <div class="col-12 d-flex justify-content-between align-items-center">
                 <div v-if="event.isCanceled == false">
                   <span v-if="event.capacity > 0"><span class="green">{{ event.capacity }}</span> spots left.</span>
                   <span v-else><span class="red">{{ event.capacity }}</span> spots left.</span>
                 </div>
-                <div v-else>
-                  <span class="fs-5 red">EVENT CANCELLED</span>
+                <div v-else class="d-flex align-items-center">
+                  <span class="fs-5 red fw-bold">EVENT CANCELLED</span>
+                </div>
+                <div v-if="event.isCanceled == false">
+                  <span class="fw-bold">Event Host:</span>
+                  <img :src="event.creator.picture" :alt="event.creator.name" :title="event.creator.name"
+                    class="rounded-circle border border-dark border-2 ms-3" height="75" width="75">
                 </div>
                 <div v-if="event.creator.id != account?.id && event.isCanceled == false">
                   <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1"
@@ -161,6 +166,7 @@ export default {
           const commentData = editable.value
           commentData.eventId = eventId
           await commentsService.createComment(commentData)
+          editable.value = {}
         } catch (error) {
           Pop.error(error.message, 'Creating Comment')
         }
@@ -188,7 +194,7 @@ export default {
 }
 
 .my-shadow {
-  text-shadow: 1px 1px 0 black;
+  text-shadow: 0px 1px 5px black;
 }
 
 .green {
@@ -208,5 +214,15 @@ export default {
 
 .border-black {
   border: 2px solid black
+}
+
+#eventThumbnail {
+  width: 95%;
+  height: auto;
+}
+
+#eventDescription {
+  height: 20vh;
+  overflow-y: scroll;
 }
 </style>
