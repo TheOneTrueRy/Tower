@@ -11,8 +11,7 @@
       </div>
       <div class="col-12 px-3 mt-5 elevation-1">
         <div class="row bg-dark text-center">
-          <div class="col-2 selectable py-2 fs-5" :class="[filterType == '' ? 'typeFilter' : '']"
-            @click="changeFilterType('')">
+          <div class="col-2 selectable py-2 fs-5" :class="{ 'typeFilter': filterType == '' }" @click="changeFilterType('')">
             All</div>
           <div class="col-2 selectable py-2 fs-5" :class="[filterType == 'concert' ? 'typeFilter' : '']"
             @click="changeFilterType('concert')">Concerts</div>

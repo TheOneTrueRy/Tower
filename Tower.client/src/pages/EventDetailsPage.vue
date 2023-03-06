@@ -36,14 +36,14 @@
                       <img :src="event.creator.picture" :alt="event.creator.name" :title="event.creator.name"
                         class="rounded-circle border border-dark border-2 ms-3" height="75" width="75">
                     </div>
-                    <div v-if="event.creator.id != account?.id && event.isCanceled == false">
+                    <div v-if="event.isCanceled == false && account.id">
                       <button v-if="event.capacity > 0 && attending == false" class="btn btn-warning elevation-1"
                         type="button" @click="attendEvent()">Attend
                         Event</button>
                       <button v-else-if="event.capacity == 0" class="btn btn-danger" disabled>No Spots Left!</button>
                       <button v-else class="btn btn-grey" disabled>Already Attending</button>
                     </div>
-                    <div v-else-if="event.creator.id == account?.id && event.isCanceled == false">
+                    <div v-if="event.creator?.id == account?.id && event.isCanceled == false">
                       <button class="btn btn-danger" @click="cancelEvent()">Cancel Event</button>
                     </div>
 
@@ -67,12 +67,13 @@
           </div>
         </div>
       </div>
-      <div class="col-8 offset-2 mt-5 py-3 bg-dark">
+      <div class="col-8 offset-2 mt-5 py-3 bg-dark mb-3">
         <div class="row px-4">
-          <div class="col-12">
+          <div class="col-12 mb-1">
             <form class="d-flex flex-column align-items-end" @submit.prevent="createComment()">
               <textarea v-model="editable.body" id="commentBody" placeholder="Tell the people..."></textarea>
-              <button class="btn btn-success bg-gradient elevation-1 mt-2">post comment</button>
+              <button v-if="account.id" class="btn btn-success bg-gradient elevation-1 mt-2">Post Comment</button>
+              <button class="btn btn-outline-light mt-2" disabled v-else>Log-In to Comment</button>
             </form>
           </div>
         </div>

@@ -4,7 +4,7 @@
       <div class="col-8 offset-2">
         <div class="row">
           <div class="col-12">
-            <form class="mt-3 text-light" @submit="createEvent()">
+            <form class="mt-3 text-light" @submit.prevent="createEvent()">
               <label for="name" class="mb-1 my-shadow">Event Name</label>
               <input v-model="editable.name" required type="text" class="form-control mb-3" maxlength="200" id="name">
               <label for="description" class="mb-1 my-shadow">Event Description</label>
