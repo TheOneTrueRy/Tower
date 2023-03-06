@@ -52,11 +52,11 @@ export default {
 }
 
 .yeet {
-  height: 8%;
+  height: 9%;
 }
 
 .my-overflow {
-  height: 92%;
+  height: 91%;
   overflow-y: scroll;
 }
 
