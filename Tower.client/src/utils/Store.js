@@ -14,7 +14,6 @@ export function saveState(key, value) {
       window.localStorage.removeItem(keyName)
     }
   } catch (error) {
-    console.error('[SAVING_STATE]', { key, value })
     Pop.error(error)
   }
 }
@@ -37,7 +36,6 @@ export function loadState(key, instanceType) {
     if (keyType == '{}' && !Object.keys(data).length) { return null }
     return data
   } catch (error) {
-    console.error('[ATTEMPTING_TO_LOAD_STATE]', { key, instanceType })
     Pop.error(error)
   }
 }
