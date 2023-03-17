@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center justify-content-center">
-        <img alt="logo" src="logo.png" height="45" />
+        <img alt="logo" src="/Logo.png" height="45" />
       </div>
     </router-link>
   </nav>
