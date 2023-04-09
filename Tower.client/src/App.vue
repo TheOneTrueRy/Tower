@@ -15,7 +15,7 @@
             <Login />
           </div>
           <div class="mt-5 text-center">
-            <router-link :to="{ name: 'CreateEvent' }">
+            <router-link v-if="account.id" :to="{ name: 'CreateEvent' }">
               <button class="btn btn-outline-light p-1" type="button">Post an Event!</button>
             </router-link>
           </div>
@@ -34,7 +34,8 @@ import Navbar from './components/Navbar.vue'
 export default {
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      account: computed(() => AppState.account)
     }
   },
   components: { Navbar, Login }
